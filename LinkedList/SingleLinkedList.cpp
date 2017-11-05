@@ -9,18 +9,14 @@ using namespace std;
 
 struct node{
 	int data;
-	// struct node *left;
 	struct node *right;
 };
 
 
 class linkedList{
-	//private:	
 	public:
 		node *first;
-		node *last;
-	
-	//public:
+		node *last;	
 		linkedList(){
 			first = NULL;
 			last = NULL;
@@ -37,7 +33,6 @@ class linkedList{
 
 node *linkedList::createNewNode(int ele){
 	node *temp = new node;
-	// temp = (node*)malloc(sizeof(node));
 	temp->left = NULL;
 	temp->right = NULL;
 	temp->data = ele;
@@ -122,7 +117,6 @@ linkedList linkedList::Merge(linkedList l){
 	int n2 = l.getSize();
 	node *temp1 = first;
 	node *temp2 = l.first;
-	// printf("L1.first->data: %d  L2.first->data: %d\n", temp1->data, temp2->data);
 	node *tempRoot = mergedList.first;
 	
 	int i=1;
@@ -147,8 +141,6 @@ linkedList linkedList::Merge(linkedList l){
 		temp2 = temp2->right;
 	}	
 
-	// printf("Merged List:\n");
-	// mergedList.display();
 	return mergedList;
 }
 //-------------------------------------------------------------------------//
@@ -208,8 +200,7 @@ void rotateLinkedlist(linkedList l, int k){
 //-------------------------------------------------------------------------//
 
 int main(){
-	// int n, x;
-	// scanf("%d", &n);
+
 	int a1[6] = {1,3,5,7,9};
 	int a2[10] = {2,4,6,8,10,12,14,16,18,20};
 
@@ -231,22 +222,22 @@ int main(){
 	L2.display();
 	
 	//--------------------Merge two linked lists----------------------//	
-	// linkedList L3 = L1.Merge(L2);
-	// printf( "Merged List:\n");
-	// L3.display();
+	linkedList L3 = L1.Merge(L2);
+	printf( "Merged List:\n");
+	L3.display();
 	//----------------------------------------------------------------//
 
 
 	//-------------Reversing Linked List in Group of k----------------//
-	// int k;
-	// scanf("%d", &k);
-	// reverseInGroups(L2, k);
+	int k1;
+	scanf("%d", &k1);
+	reverseInGroups(L2, k1);
 	//----------------------------------------------------------------//
 
 	//-------Rotating Linked List counter-clockwise by k-nodes--------//
-	int k;
-	cin >> k;
-	rotateLinkedlist(L2, k);
+	int k2;
+	cin >> k2;
+	rotateLinkedlist(L2, k2);
 	//----------------------------------------------------------------//
 
 	return 0;
