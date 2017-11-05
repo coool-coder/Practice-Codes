@@ -9,7 +9,7 @@ using namespace std;
 
 struct node{
 	int data;
-	struct node *right;
+	struct node *next;
 };
 
 
@@ -33,8 +33,7 @@ class linkedList{
 
 node *linkedList::createNewNode(int ele){
 	node *temp = new node;
-	temp->left = NULL;
-	temp->right = NULL;
+	temp->next = NULL;
 	temp->data = ele;
 	return temp; 
 }
@@ -46,7 +45,7 @@ void linkedList::insertEnd(int ele){
 		last = temp; 
 	}
 	else{
-		last->right = temp;
+		last->next = temp;
 		last = temp;
 	}
 }
@@ -59,7 +58,7 @@ int linkedList::check(int ele){
 			flag = 1;
 			break;
 		}
-		root = root->right;
+		root = root->next;
 	}
 	return flag;
 }
@@ -70,9 +69,11 @@ void linkedList::insertAfter(int after, int ele){
 		node *temp = createNewNode(ele);
 		node *tempRoot = first;
 		while(tempRoot->data != after)
-			tempRoot = tempRoot->right;
-		temp->right = tempRoot->right;
-		tempRoot->right = temp;
+			tempRoot = tempRoot->next;
+		temp->next = tempRoot->next;
+		tempRoot->next = temp;
+	}else{
+		printf("Given element is not present in linked list\n");
 	}
 }
 
@@ -82,7 +83,7 @@ void linkedList::insertBegin(int ele){
 		first = last = temp;
 	}
 	else{
-		temp->right = first;
+		temp->next = first;
 		first = temp;
 	}
 
@@ -95,7 +96,7 @@ void linkedList::display(){
 		node *tempRoot = first;
 		while(tempRoot != NULL){
 			printf("%d -> ", tempRoot->data);
-			tempRoot = tempRoot->right;
+			tempRoot = tempRoot->next;
 		}
 		printf("\n");
 	}
@@ -106,7 +107,7 @@ int linkedList::getSize(){
 	node *tempRoot = first;
 	while(tempRoot != NULL){
 		len++;
-		tempRoot = tempRoot->right;
+		tempRoot = tempRoot->next;
 	}
 	return len;
 }
@@ -123,22 +124,22 @@ linkedList linkedList::Merge(linkedList l){
 	while(temp1 != NULL && temp2 != NULL){
 		if(i%2==0){
 			mergedList.insertEnd(temp2->data);
-			temp2 = temp2->right;
+			temp2 = temp2->next;
 			i++;
 
 		}else{
 			mergedList.insertEnd(temp1->data);
-			temp1 = temp1->right;
+			temp1 = temp1->next;
 			i++;
 		}
 	}
 	while(temp1 != NULL){
 		mergedList.insertEnd(temp1->data);
-		temp1 = temp1->right;
+		temp1 = temp1->next;
 	}
 	while(temp2 != NULL){
 		mergedList.insertEnd(temp2->data);
-		temp2 = temp2->right;
+		temp2 = temp2->next;
 	}	
 
 	return mergedList;
@@ -155,13 +156,13 @@ void reverseInGroups(linkedList l, int k){
 	int i = 0;
 	while(tempRoot != NULL){
 		a[(i++)] = tempRoot->data;
-		tempRoot = tempRoot->right;
+		tempRoot = tempRoot->next;
 	}
 	tempRoot = l.first;
 	for(i = 0; i < iter*k; i+=k){
 		for(int j = k+(i-1); j >= i; j--){
 			tempRoot->data = a[j];
-			tempRoot = tempRoot->right;
+			tempRoot = tempRoot->next;
 		}
 	}
 	if(len%k==0)
@@ -170,7 +171,7 @@ void reverseInGroups(linkedList l, int k){
 		int rem = len-iter*k;
 		for(int j = len-1; j >= iter*k; j--){
 			tempRoot->data = a[j];
-			tempRoot = tempRoot->right;	
+			tempRoot = tempRoot->next;	
 		}
 		l.display();
 	}
@@ -185,14 +186,14 @@ void rotateLinkedlist(linkedList l, int k){
 	int i = 0;
 	while(tempRoot != NULL){
 		a[i++] = tempRoot->data;
-		tempRoot = tempRoot->right;
+		tempRoot = tempRoot->next;
 	}
 	tempRoot = l.first;
 	int count = 0;
 	while(count < len){
 		tempRoot->data = a[k%len];
 		k++;
-		tempRoot = tempRoot->right;
+		tempRoot = tempRoot->next;
 		count++;
 	}
 	l.display();
