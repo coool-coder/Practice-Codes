@@ -9,16 +9,30 @@ using namespace std;
 struct Player {
     int score;
     string name;
-    friend bool operator<(struct Player a, struct Player b){
-        return a.score > b.score;
-    }
+    // defining compare function within struct-> work as the property of the struct.
+    // friend bool operator<(struct Player a, struct Player b){
+    //     if(a.score != b.score)
+    //        return a.score > b.score;
+    //     else
+    //         return a.name < b.name;
+    // }
 };
 
+bool cmp(Player a, Player b){
+    if(a.score != b.score)
+        return a.score > b.score;
+    else
+        return a.name < b.name;
+}
 
 
 
 vector<Player> comparator(vector<Player> players) {
-    sort(players.begin(), players.end());
+    // when cmp function is not defined within same struct (object of which is to be sorted) 
+    sort(players.begin(), players.end(), cmp);
+
+    // if not using cmp compare function and compare function defined within struct. 
+    // sort(players.begin(), players.end());   
     return players;
 
 }
